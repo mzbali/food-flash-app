@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import CartContext from '../store/cart-context';
+import CartContext from '../../store/cart-context';
 import CartIcon from '../Cart/CartIcon';
 import classes from './HeaderCartButton.module.css';
 
 const HeaderCartButton = (props) => {
   const cartCtx = useContext(CartContext);
-  const items = cartCtx.items;
-  const amountOfMeal = items.reduce(
+  const amountOfMeal = cartCtx.items.reduce(
     (totalAmount, item) => totalAmount + item.amount,
     0
   );
@@ -21,7 +20,7 @@ const HeaderCartButton = (props) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [items]);
+  }, [cartCtx.items]);
 
   return (
     <button className={btnClass} onClick={props.onCartClick}>

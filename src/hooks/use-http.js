@@ -11,18 +11,19 @@ const useHttp = () => {
       const request = await fetch(requestConfig.url, {
         method: requestConfig.method ? requestConfig.method : 'GET',
         headers: requestConfig.headers ? requestConfig.headers : {},
-        body: requestConfig.body ? requestConfig.body : null,
+        body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
       });
       if (!request.ok) {
         throw new Error('Something went wrong');
       }
       const data = await request.json();
       applyData(data);
+      setIsLoading(false);
     } catch (err) {
+      setIsLoading(false);
       console.log(err.message);
       setError(err.message);
     }
-    setIsLoading(false);
   }, []);
 
   return {
